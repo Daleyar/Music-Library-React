@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css';
 import MusicTable from "./MusicTable/musicTable";
+import SongForm from "./SongForm/songForm";
 
 class App extends Component {
     constructor(props){
@@ -9,13 +10,6 @@ class App extends Component {
         this.state = {
             songs: []
         };
-        this.songs= {
-            title: '',
-            artist: '',
-            album: '',
-            release_date: '',
-            genre: '',
-        }
     }
 
     componentDidMount(){
@@ -25,33 +19,34 @@ class App extends Component {
     async makeGetRequest(){
         try{
             let response = await axios.get('http://127.0.0.1:8000/music/');
-            let allsongs = response.data
+            //let allsongs = response.data
             this.setState({
-                songs:allsongs
+                songs:response.data
             });
         }
-        catch (ex) {
+        catch (error) {
             console.log('Error in API call!');
         }
     }
 
     async deleteSong(id){
-        debugger
         try{
-            let response = await axios.delete(`http://127.0.0.1:8000/music/${id}/`)
-            console.log(response)
+            await axios.delete(`http://127.0.0.1:8000/music/${id}/`)
+            this.makeGetRequest()
         }
-        catch (ex) {
+        catch (error) {
             console.log('Error in Delete API call!');
         }
     }
-
-    async addSong(){
+    async addSong(song){
         try{
-            axios.create(`http://127.0.0.1:8000/music/`)
-            console.log(response)
+            let response = await axios.post(`http://127.0.0.1:8000/music/`, song)
+            this.setState({
+                song: response.data
+            });
+            this.makeGetRequest()
         }
-        catch (ex) {
+        catch (error) {
             console.log('Error in Create API call!');
         }
     }
@@ -59,8 +54,8 @@ class App extends Component {
     render() {
         return (
             <div>
-                <MusicTable song={this.state.songs}
-                deleteSong={this.deleteSong}/>
+                <MusicTable song={this.state.songs} deleteSong={this.deleteSong.bind(this)}/>
+                <SongForm addSong={this.addSong.bind(this)} />
             </div>
         );
     }
