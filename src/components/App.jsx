@@ -3,6 +3,7 @@ import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css';
 import MusicTable from "./MusicTable/musicTable";
 import SongForm from "./SongForm/songForm";
+import FilterSearch from "./SearchBar/searchBar";
 
 class App extends Component {
     constructor(props){
@@ -15,6 +16,12 @@ class App extends Component {
     componentDidMount(){
         this.makeGetRequest();
     }
+
+   filterSongs = (filtered) => {
+       this.setState({
+           songs:filtered
+       })
+   }
 
     async makeGetRequest(){
         try{
@@ -54,6 +61,7 @@ class App extends Component {
     render() {
         return (
             <div>
+                <FilterSearch search={this.state.songs} filterAction={this.filterSongs}/>
                 <MusicTable song={this.state.songs} deleteSong={this.deleteSong.bind(this)}/>
                 <SongForm addSong={this.addSong.bind(this)} />
             </div>
