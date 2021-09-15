@@ -1,11 +1,11 @@
 import React from "react";
-import FilterList from "../SearchBar/searchBar";
+import './musicTable.css'
 
 const MusicTable = (props) => {
     return (
         <center>
-        <div className="col-md-12">
-            <table className="table table-bordered">
+        <div className="table-wrapper">
+            <table className="fl-table">
                 <thead>
                     <tr>
                         <th>Title</th>

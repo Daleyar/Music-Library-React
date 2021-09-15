@@ -1,5 +1,5 @@
-import react from "react";
 import React, { Component } from "react";
+import './songForm.css';
 
 
 class SongForm extends Component {
@@ -40,21 +40,21 @@ class SongForm extends Component {
 
     render(){
         return(
-        <react.Fragment>
-            <form onSubmit={this.handleSubmit}>
-                <label>Title</label>
-                <input name='title' type="text" onChange={this.handleChange} value={this.state.title}></input>
-                <label>Artist</label>
-                <input name='artist' type="text" onChange={this.handleChange} value={this.state.artist}></input>
-                <label>Album</label>
-                <input name='album' type="text" onChange={this.handleChange} value={this.state.album}></input>
-                <label>Release Date</label>
-                <input name='release_date' type="date" onChange={this.handleChange} value={this.state.release_date}></input>
-                <label>Genre</label>
-                <input name='genre' type="text" onChange={this.handleChange} value={this.state.genre}></input>
-                <button className="btn btn-primary" type='submit' onClick={this.addSong}>Add Song</button>
+            <div className = "form-box">
+                <form onSubmit={this.handleSubmit}>
+                    <label>Title</label>
+                    <input name='title' type="text" onChange={this.handleChange} value={this.state.title}></input>
+                    <label>Artist</label>
+                    <input name='artist' type="text" onChange={this.handleChange} value={this.state.artist}></input>
+                    <label>Album</label>
+                    <input name='album' type="text" onChange={this.handleChange} value={this.state.album}></input>
+                    <label>Release Date</label>
+                    <input name='release_date' type="date" onChange={this.handleChange} value={this.state.release_date}></input>
+                    <label>Genre</label>
+                    <input name='genre' type="text" onChange={this.handleChange} value={this.state.genre}></input>
+                    <button type='submit' onClick={this.addSong}>Add Song</button>
                 </form>
-        </react.Fragment>
+            </div>
         );
     }
 }
